@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>student</title>
+</head>
+<style>
+	span {
+		color: red;
+	}
+
+	body {
+		background-color: lightblue;
+	}
+</style>
+<script type="text/javascript" src="/static/js/add.js"></script>
+
+<body>
+	<form name="addForm" action="/student/insert" method="post" onsubmit="return check()">
+		<div>
+			Name:<input id="name" type="text" name="name" /><br>
+			<span name="nameError"></span>
+		</div>
+		<div>
+			Age:<input id="age" type="text" name="age" /><br>
+			<span name="ageError"></span>
+		</div>
+		<div>
+			Score:<input id="score" type="text" name="score" /><br>
+			<span name="scoreError"></span>
+		</div>
+		<div>
+			Address:<input id="address" type="text" name="address" /><br>
+			<span name="addressError"></span>
+		</div>
+		<div>
+			Class:<input id="stuClass" type="text" name="stuClass" /><br>
+			<span name="stuClassError"></span>
+		</div>
+
+		<input type="submit" value="studentLogin">
+	</form>
+</body>
+
+</html>

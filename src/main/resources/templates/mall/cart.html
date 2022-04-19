@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>買い物カゴ</title>
+	<script type="text/javascript" src="/static/js/cart.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+
+<body>
+	<form name="cartForm" action="/order/add" method="POST">
+		<table>
+			<tr>
+				<td>商品名</td>
+				<td>数量</td>
+			</tr>
+			<tr>
+				<td><select name="productID" onchange="calculate()">
+						<option value="">商品を選択してください。</option>
+						<option th:each="product : ${product_list}" th:value="${product.productId}"
+							th:text="${product.productName}" th:price="${product.productPrice}"></option>
+					</select></td>
+				<td><select name="quantity" onchange="calculate()">
+						<option value="0">数量を選択してください。</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select></td>
+			</tr>
+			<tr>
+				<td>金額</td>
+				<td><span name="price"></span></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><input type="submit" value="注文"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+
+</html>

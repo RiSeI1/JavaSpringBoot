@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>studentList</title>
+<style>
+	body {
+			background-color: lightblue;
+		}
+	table{
+			background-color: white;
+	}
+</style>
+</head>
+<body>
+	
+	<table border="1" style="border-collapse:collapse">
+        <thead style="background:yellow">
+            <tr>
+                <td>studentID</td>
+                <td>studentName</td>
+                <td>studentAge</td>
+                <td>studentScore</td>
+                <td>studentAddress</td>
+                <td>studentClass</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${stu_list.size()} eq 0">
+                <td colspan="5">Student information does not exist</td>
+            </tr>
+            <tr th:each="student:${stu_list}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.age}"></td>
+                <td th:text="${student.score}"></td>
+                <td th:text="${student.address}"></td>
+                <td th:text="${student.stuClass}"></td>
+                
+            </tr>
+        </tbody>
+    </table>
+    <div>MaxScore:</a><a th:text="${maxScore.score}"></div>
+    <div>MaxAge:</a><a th:text="${maxAge.age}"></div>
+    <div>ScoreAve:</a><a th:text="${aveScore}"></div>
+    <div>AgeAve:</a><a th:text="${aveAge}"></div>
+    
+</body>
+</html>

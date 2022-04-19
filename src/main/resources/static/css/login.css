@@ -1,0 +1,28 @@
+body {
+    background-color: lightblue;
+  }
+  h1 {
+    text-shadow: 2px 2px 5px rgb(200, 100, 0);
+}
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 10px 10px 5px grey;
+  }
+  
+  .button:hover {background-color: #3e8e41}
+  
+  .button:active {
+    background-color: #3e8e41;
+    box-shadow: 5px 10px 5px grey;
+    transform: translateY(5px);
+  }
