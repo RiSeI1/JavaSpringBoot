@@ -2,6 +2,7 @@ package com.firstdevelop.boot.controller;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.internet.MimeMessage;
@@ -124,9 +125,9 @@ public class OrderController {//パスを追加
 	 * @return 処理結果表示画面				
 	 */				
 	@RequestMapping("/sendM")				
-	public String sendMail(@RequestParam("file_address_list") MultipartFile file_address_list,				
-			@RequestParam("file_email_text") MultipartFile file_email_text,		
-			@RequestParam("file_upload") MultipartFile file_upload,		
+	public String sendMail(@RequestParam("file_address_list") MultipartFile file_address_list,
+			@RequestParam("file_email_text") MultipartFile file_email_text,	
+			@RequestParam("file_upload") MultipartFile[] file_uploads,	
 			@RequestParam("title_email_text") String title_email_text, Model model) {		
 		// メール本文処理			
 		InputStream textData = null;			
@@ -161,9 +162,8 @@ public class OrderController {//パスを追加
 			// メール本文にある連絡人(2行目)		
 			String perName = address.getPerson();		
 			// メールの基本設定		
-			MimeMessage message = mailSender.createMimeMessage();		
-			String fileName = file_upload.getOriginalFilename();		
-			MimeMessageHelper helper;		
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper;
 			try {		
 				helper = new MimeMessageHelper(message, true);	
 				// 送信先	
@@ -172,8 +172,17 @@ public class OrderController {//パスを追加
 				helper.setSubject(title_email_text);	
 				// 本文(Html)	
 				helper.setText(String.format(emailText, title, perName), true);	
-				// 添付ファイル	
-				helper.addAttachment(fileName, file_upload);	
+				// マルチ添付ファイル設定							
+				if (file_uploads != null && file_uploads.length > 0) {							
+					for(MultipartFile up_file : file_uploads) {						
+						String fileName = up_file.getOriginalFilename();					
+						helper.addAttachment(fileName, up_file);					
+					}						
+				}							
+				// 送信時間							
+				helper.setSentDate(new Date());							
+
+				
 				mailSender.send(message);	
 					
 			} catch (Exception e) {		

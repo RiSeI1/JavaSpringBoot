@@ -13,16 +13,21 @@
 	<div style="text-align: center">
 		<h1>おはようございます!</h1>
 		<form name="loginForm" action="/signin" method="POST" onsubmit="return check()">
-			<div>
+			</br>
+			<div id="div1">
 				ユーザーID:<input name="username" type="text"><br>
-			</div>
-			<br>
-			<div>
+
+				</br>
+				</br>
+
 				パスワード:<input name="password" type="password"><br>
 			</div>
+			</br>
 			<p>
 				<input type="submit" class="button" value="客様として登録">
-				<input type="submit" class="button" onclick="window.open('/student/add')" value="先生として登録">
+				</br>
+				</br>
+				<input type="submit" class="button" formaction="/student/add" value="先生として登録">
 			</p>
 		</form>
 	</div>

@@ -50,11 +50,17 @@ function check() {
 			document.getElementsByName("nameError")[0].innerText='*nameError.Please input student name';
 			
 			isSubmit = false;
-		}else if(name.match(/[0-9]+/)){
+		}else if(name.match(/[0-9]+/) || name.match(/[%&',;?$\x22]+/)){
 			alert("Please input student name");
 			return false;
-			
 		}
+		
+		if(name.match(/[^あ-んアーケー\s]/)){
+			document.getElementsByName("nameError")[0].innerText='*nameError.Please input student name';
+			alert("Please input student name");
+			isSubmit = false;
+		}
+		
 		if(age == ''){
 			document.getElementsByName("ageError")[0].innerText='*ageError.Please input student age';
 			isSubmit = false;

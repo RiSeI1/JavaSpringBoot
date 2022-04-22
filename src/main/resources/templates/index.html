@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>index�</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<meta charset="UTF-8">
+	<title>index�</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
 
 </head>
+
 <body>
-		<div style="text-align: center">
-    	
-    	<h1><a th:text="${title}"></a></h1>
-    	</br>
-    	<a th:href="@{login}"><span class="button">進入</span></a>
+	<div style="text-align: center">
+
+		<h1><a th:text="${title}"></a></h1>
+		</br>
+
+		<a id="indexA1" th:href="@{login}">
+			<span style="font-size: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;進入&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</a>
 	</div>
 </body>
+
 </html>

@@ -8,12 +8,17 @@
 	<style>
 		table {
 			background-color: white;
+			text-align: center;
 		}
 	</style>
 </head>
 
-<body>
-	<table border="1" style="border-collapse:collapse">
+<body id="allBody">
+	</br>
+	<div　style="heigh:100px weigh:100px">
+	<h1 id="allH1">学生情報一覧</h1>
+	</div>
+	<table border="1" style="border-collapse:collapse;width:100%" >
 		<thead style="background:yellow">
 			<tr>
 				<td>stuID</td>
@@ -40,18 +45,20 @@
 			</tr>
 		</tbody>
 	</table>
-	<div th:unless="${stu_list.size()} eq 0">
+	<div style="color:yellow" th:unless="${stu_list.size()} eq 0">
 		<div>MaxScore:</a><a th:text="${maxScore.score}"></div>
 		<div>MaxAge:</a><a th:text="${maxAge.age}"></div>
 		<div>ScoreAve:</a><a th:text="${aveScore}"></div>
 		<div>AgeAve:</a><a th:text="${aveAge}"></div>
-	
+
 	</div>
-		<div align="center" style="position:relative; top:10px">
-			<input type="submit" class="button" onclick="window.open('/student/add')" value="stuAdd">
-		</div>
+	
 	</br>
 	
+	<div align="center" style="position:relative; top:10px">
+		<input type="submit" class="button" onclick="window.open('/student/add')" value="stuAdd">
+	</div>
+
 </body>
 
 </html>

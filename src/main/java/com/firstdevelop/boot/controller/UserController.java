@@ -44,4 +44,14 @@ public class UserController {
 		}
 		return "login";
 	}
+	@PostMapping("/teacherSignin")
+	public String teacherSignin(@RequestParam("username") String username, @RequestParam("password") String password,
+			HttpSession session) {
+		UserEntity user = userMapper.login(username, password);
+		if (user != null) {
+			session.setAttribute("user", user);
+			return "redirect:/student/searchAll";
+		}
+		return "login";
+	}
 }
