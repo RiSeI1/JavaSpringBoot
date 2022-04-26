@@ -11,7 +11,7 @@ public class IndexController {
 	@RequestMapping(value = {"/", "/index"})
 	public String index(Map<String, Object> map) {
 		
-		map.put("title", "いらっしゃいませー");
+		map.put("title", "いらっしゃい");
 		return "index";
 	}
 }

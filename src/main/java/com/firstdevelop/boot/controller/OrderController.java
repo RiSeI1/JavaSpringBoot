@@ -132,82 +132,82 @@ public class OrderController {//パスを追加
 		// メール本文処理			
 		InputStream textData = null;			
 		String emailText = null;			
-		try {			
-			String fileTextName = file_email_text.getOriginalFilename();		
-			textData = file_email_text.getInputStream();		
-			emailText = orderService.sendEmailText(fileTextName, textData);		
-		} catch (Exception e) {			
-			e.printStackTrace();		
-		}			
-		// メールアドレス処理			
-		InputStream addressData = null;			
-		List<EmailAdressForm> addressList = null;			
-		try {			
-			String fileAddressName = file_address_list.getOriginalFilename();		
-			addressData = file_address_list.getInputStream();		
-			addressList = orderService.sendEmailAddressList(fileAddressName, addressData);		
-		} catch (Exception e) {			
-			e.printStackTrace();		
-		}			
-		// エラー対応処理			
-		List<EmailAdressForm> errorAddressList = new ArrayList<>();			
-		boolean isError = false;			
-		String error_Message = null;			
-		String result_Message = null;			
+		try {
+			String fileTextName = file_email_text.getOriginalFilename();
+			textData = file_email_text.getInputStream();
+			emailText = orderService.sendEmailText(fileTextName, textData);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// メールアドレス処理
+		InputStream addressData = null;
+		List<EmailAdressForm> addressList = null;
+		try {
+			String fileAddressName = file_address_list.getOriginalFilename();
+			addressData = file_address_list.getInputStream();
+			addressList = orderService.sendEmailAddressList(fileAddressName, addressData);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// エラー対応処理
+		List<EmailAdressForm> errorAddressList = new ArrayList<>();
+		boolean isError = false;
+		String error_Message = null;
+		String result_Message = null;
 					
-		// メール送信処理、アドレスリストをループして、一つずつ送信する			
-		for (EmailAdressForm address : addressList) {			
-			// メール本文にある会社名(1行目)		
-			String title = address.getComName();		
-			// メール本文にある連絡人(2行目)		
-			String perName = address.getPerson();		
-			// メールの基本設定		
+		// メール送信処理、アドレスリストをループして、一つずつ送信する
+		for (EmailAdressForm address : addressList) {
+			// メール本文にある会社名(1行目)
+			String title = address.getComName();
+			// メール本文にある連絡人(2行目)
+			String perName = address.getPerson();
+			// メールの基本設定
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper;
-			try {		
-				helper = new MimeMessageHelper(message, true);	
+			try {
+				helper = new MimeMessageHelper(message, true);
 				// 送信先	
-				helper.setTo(address.getEmailAdress());	
-				// 件名	
-				helper.setSubject(title_email_text);	
-				// 本文(Html)	
-				helper.setText(String.format(emailText, title, perName), true);	
-				// マルチ添付ファイル設定							
-				if (file_uploads != null && file_uploads.length > 0) {							
-					for(MultipartFile up_file : file_uploads) {						
-						String fileName = up_file.getOriginalFilename();					
-						helper.addAttachment(fileName, up_file);					
-					}						
-				}							
-				// 送信時間							
-				helper.setSentDate(new Date());							
+				helper.setTo(address.getEmailAdress());
+				// 件名
+				helper.setSubject(title_email_text);
+				// 本文(Html)
+				helper.setText(String.format(emailText, title, perName), true);
+				// マルチ添付ファイル設定
+				if (file_uploads != null && file_uploads.length > 0) {
+					for(MultipartFile up_file : file_uploads) {
+						String fileName = up_file.getOriginalFilename();
+						helper.addAttachment(fileName, up_file);
+					}
+				}
+				// 送信時間
+				helper.setSentDate(new Date());
 
 				
-				mailSender.send(message);	
+				mailSender.send(message);
 					
-			} catch (Exception e) {		
+			} catch (Exception e) {
 				// 送信失敗の場合、失敗のアドレス情報を格納	
-				e.printStackTrace();	
-				isError = true;	
-				errorAddressList.add(address);	
-			}		
-		}			
+				e.printStackTrace();
+				isError = true;
+				errorAddressList.add(address);
+			}
+		}
 					
 		// リスポンス設定			
-		if (isError) {			
-			error_Message = "メール送信処理件数:" + addressList.size() + "。";		
+		if (isError) {
+			error_Message = "メール送信処理件数:" + addressList.size() + "。";
 					
-			result_Message = "送信成功：" + (addressList.size() - errorAddressList.size()) + "件。\n" + "送信失敗:"		
+			result_Message = "送信成功：" + (addressList.size() - errorAddressList.size()) + "件。\n" + "送信失敗:"
 					+ errorAddressList.size() + "。";
-			model.addAttribute("message", error_Message);		
-			model.addAttribute("result_Message", result_Message);		
-			model.addAttribute("errorAddressList", errorAddressList);		
-		} else {			
-			result_Message = addressList.size() + "件メールが送信しました。";		
-			model.addAttribute("result_Message", result_Message);		
-		}			
+			model.addAttribute("message", error_Message);
+			model.addAttribute("result_Message", result_Message);
+			model.addAttribute("errorAddressList", errorAddressList);
+		} else {
+			result_Message = addressList.size() + "件メールが送信しました。";
+			model.addAttribute("result_Message", result_Message);
+		}
 					
-		return "mail/email";		
-	}				
+		return "mail/email";
+	}
 
 }
